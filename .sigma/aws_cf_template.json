@@ -33,6 +33,35 @@
         ]
       }
     },
+    "cognitoKcogpy": {
+      "Description": "ID of Cognito user pool Kcogpy",
+      "Value": {
+        "Fn::Select": [
+          "1",
+          {
+            "Fn::Split": [
+              "/",
+              {
+                "Fn::Select": [
+                  "5",
+                  {
+                    "Fn::Split": [
+                      ":",
+                      {
+                        "Fn::GetAtt": [
+                          "cognitoKcogpy",
+                          "Arn"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
     "Kpymum": {
       "Description": "ARN of Lambda function Kpymum",
       "Value": {
@@ -89,6 +118,157 @@
         }
       }
     },
+    "cognitoKcogpy": {
+      "Type": "AWS::Cognito::UserPool",
+      "Properties": {
+        "AutoVerifiedAttributes": [],
+        "AliasAttributes": [],
+        "UsernameAttributes": [],
+        "Policies": {
+          "PasswordPolicy": {
+            "MinimumLength": 8,
+            "RequireUppercase": true,
+            "RequireLowercase": true,
+            "RequireNumbers": true,
+            "RequireSymbols": true
+          }
+        },
+        "AdminCreateUserConfig": {
+          "AllowAdminCreateUserOnly": false,
+          "UnusedAccountValidityDays": 7,
+          "InviteMessageTemplate": {}
+        },
+        "UserPoolName": "Kcogpy",
+        "Schema": [
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": false,
+            "Name": "sub",
+            "Required": true
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "address",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "birthdate",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "email",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "family_name",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "gender",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "given_name",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "locale",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "middle_name",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "name",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "nickname",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "phone_number",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "picture",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "preferred_username",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "profile",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "timezone",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "Number",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "updated_at",
+            "Required": false
+          },
+          {
+            "AttributeDataType": "String",
+            "DeveloperOnlyAttribute": false,
+            "Mutable": true,
+            "Name": "website",
+            "Required": false
+          }
+        ]
+      }
+    },
     "Kpymum": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -120,6 +300,32 @@
           "Variables": {
             "SIGMA_AWS_ACC_ID": {
               "Ref": "AWS::AccountId"
+            },
+            "UserPoolId_cognitoKcogpy": {
+              "Fn::Select": [
+                "1",
+                {
+                  "Fn::Split": [
+                    "/",
+                    {
+                      "Fn::Select": [
+                        "5",
+                        {
+                          "Fn::Split": [
+                            ":",
+                            {
+                              "Fn::GetAtt": [
+                                "cognitoKcogpy",
+                                "Arn"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           }
         }
@@ -156,13 +362,14 @@
                 {
                   "Effect": "Allow",
                   "Action": [
-                    "SES:SendEmail",
-                    "SES:SendRawEmail"
+                    "cognito-idp:ListUsers"
                   ],
-                  "Resource": [
-                    "arn:aws:ses:ap-south-1:318300609668:identity/testsigma18+April20th2022GSK@gmail.com",
-                    "arn:aws:ses:ap-south-1:318300609668:identity/kumudika@adroitlogic.com"
-                  ]
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "cognitoKcogpy",
+                      "Arn"
+                    ]
+                  }
                 }
               ]
             }
@@ -192,7 +399,7 @@
         "Principal": "apigateway.amazonaws.com"
       }
     },
-    "apigkpyAPIDeployment1650866596727": {
+    "apigkpyAPIDeployment1650867135576": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
