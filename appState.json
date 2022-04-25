@@ -1,0 +1,123 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "d5d9616c-1ea6-4667-9315-3f17ef646d08": {
+        "id": "d5d9616c-1ea6-4667-9315-3f17ef646d08",
+        "parent": null,
+        "name": "Kpymum.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Kpymum.py",
+        "cursor": {
+          "lineNumber": 22,
+          "column": 20
+        },
+        "config": {
+          "runtime": "python3.9",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": [],
+          "name": "Kpymum"
+        },
+        "triggers": [
+          {
+            "resourceName": "apigkpyAPIany",
+            "config": {}
+          }
+        ],
+        "lastUpdated": 1650866114969
+      },
+      "72491c13-ea68-4538-81c5-0acbb5ac35df": {
+        "id": "72491c13-ea68-4538-81c5-0acbb5ac35df",
+        "parent": null,
+        "name": "requirements.txt",
+        "type": "TEXT_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "requirements.txt"
+      }
+    },
+    "openFiles": [
+      "d5d9616c-1ea6-4667-9315-3f17ef646d08"
+    ],
+    "currentFileId": "d5d9616c-1ea6-4667-9315-3f17ef646d08",
+    "resources": {
+      "apigkpyAPIany": {
+        "name": "apigkpyAPIany",
+        "type": "API_GATEWAY",
+        "config": {
+          "apiType": 1,
+          "apiMode": 0,
+          "apiName": "kpyAPI",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "",
+          "resourcePath": "/",
+          "restMethod": "ANY",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "test",
+          "mode": 0
+        }
+      },
+      "ses-testsigma18+April20th2022GSK@gmail.com": {
+        "name": "ses-testsigma18+April20th2022GSK@gmail.com",
+        "type": "SES",
+        "config": {
+          "selectedIdentity": "testsigma18+April20th2022GSK@gmail.com",
+          "projectRegion": "ap-south-1"
+        }
+      }
+    },
+    "customTemplate": {
+      "syntax": "JSON",
+      "overrideDefault": false,
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "boto3": {
+          "name": "boto3",
+          "language": "python",
+          "version": "1.16.43",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "sigmaVersion": "1.10.2",
+    "projectName": "Kpymum",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "ap-south-1",
+    "platform": "AWS",
+    "language": "python",
+    "platformRegions": {},
+    "lastSave": 1650866245220
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "kpymum",
+      "url": "https://github.com/Kumudikatest/kpymum"
+    }
+  }
+}
